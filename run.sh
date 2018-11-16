@@ -19,6 +19,8 @@ fi
 read -p "Install FTP server ? (y/n) : " ftpserver
 read -p "Install webserver (Apache2 + PHP + MySQL) ? (y/n) : " webserver
 read -p "Install Laravel ? (y/n) : " laravel
+read -p "Git clone the project : " applink
+read -p "Project folder name : " foldername
 
 # Update system
 apt-get -y update && -y apt-get upgrade && apt-get dist-upgrade -y
@@ -51,7 +53,8 @@ then
     mv composer.phar /usr/local/bin/composer
     chmod +x /usr/local/bin/composer
     cd /var/www
-    git clone https://github.com/laravel/laravel.git
+    git clone $applink
+    mv $foldername laravel
     cd /var/www/laravel
     composer install
     chown -R www-data.www-data /var/www/laravel
